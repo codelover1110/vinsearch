@@ -1,7 +1,7 @@
 # Search tool listings by VIN
 Trading Dashboard per the upward discussion
 
+http://104.238.228.232/vinsearch
 
-1.  Python (Flask) + Chart.js
-2.  Python Plotly (No Javascript)
+
 
