@@ -2,6 +2,7 @@
 
 http://104.238.228.232/vinsearch
 
+![image](https://user-images.githubusercontent.com/59010875/219440220-aab758d7-ac72-4bce-b049-fcd8b61c50b9.png)
 
 ### Outline of the classes, methods and files
 1. Database Connection Class: This class will handle the connection to the MySQL database and the execution of the SQL queries. It should have methods for establishing a connection to the database, executing a query, and closing the connection.
