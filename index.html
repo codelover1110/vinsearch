@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vin Search App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>Vin Search App</h1>
+    <form id="search-form" class="form-inline">
+      <div class="form-group">
+        <label for="vin-input" class="mr-2">VIN:</label>
+        <input type="text" id="vin-input" name="vin" class="form-control mr-2" required>
+      </div>
+      <button type="submit" id="search-btn" class="btn btn-primary">Search</button>
+    </form>
+    <div id="search-results" class="mt-5"></div>
+  </div>
+  <script>
+    // Get references to the form and search results elements
+    const searchForm = document.getElementById('search-form');
+    const searchResults = document.getElementById('search-results');
+
+    // Attach an event listener to the form submit event
+    searchForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // Get the VIN value from the form input
+      const vin = document.getElementById('vin-input').value;
+
+      // Call the PHP script using an AJAX request
+      const response = await fetch('search.php', {
+        method: 'POST',
+        body: new URLSearchParams({
+          vin: vin
+        })
+      }).then((response) => response.json())
+        .then((data) => {
+            // Parse the JSON response and display the results in a table
+            if (data) {
+                searchResults.innerHTML = `
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>VIN</th>
+                                <th>Year</th>
+                                <th>Make</th>
+                                <th>Model</th>
+                                <th>Price</th>
+                                <th>Miles</th>
+                                <th>Zip</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${data.vin}</td>
+                                <td>${data.year}</td>
+                                <td>${data.make}</td>
+                                <td>${data.model}</td>
+                                <td>${data.price}</td>
+                                <td>${data.miles}</td>
+                                <td>${data.zip}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    `;
+            } else {
+                searchResults.innerHTML = '<p class="text-danger">No results found.</p>';
+            }
+        });
+    });
+  </script>
+</body>
+</html>
